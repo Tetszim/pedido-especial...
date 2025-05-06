@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofia e Gabriel: O Quiz do Amor!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .heart-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fecaca' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .heart-beat {
+            animation: heartBeat 1.5s infinite;
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+        .radio-custom:checked + label {
+            background-color: #ec4899;
+            color: white;
+            border-color: #ec4899;
+        }
+    </style>
+</head>
+<body class="heart-pattern min-h-screen flex flex-col">
+    <div class="flex-grow container mx-auto px-4 py-12 max-w-3xl">
+        <!-- Introduction -->
+        <div id="intro" class="bg-white rounded-xl shadow-lg p-8 text-center fade-in">
+            <div class="heart-beat text-6xl text-pink-500 mb-6">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-pink-700 mb-4">Sofia e Gabriel: O Quiz do Amor!</h1>
+            <p class="text-lg text-gray-700 mb-6">Você conhece de verdade o Gabriel? Responda às perguntas e veja quanto você sabe sobre ele e sobre o relacionamento de vocês.</p>
+            <p class="text-lg text-pink-600 font-medium mb-8">No final, uma surpresa especial que vai derreter o seu coração! 💖</p>
+            <button onclick="startQuiz()" class="px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-full transition transform hover:scale-105">
+                Começar o Quiz <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="hidden bg-white rounded-xl shadow-lg p-8">
+            <form id="quiz-form">
+                <!-- Question 1 -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-4">1. Qual é a cor favorita do Gabriel?</h2>
+                    <p class="text-gray-600 mb-6">Saber a cor favorita dele mostra como você está sintonizada com as preferências dele.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <input type="radio" id="q1-azul" name="q1" value="Azul" class="hidden radio-custom">
+                            <label for="q1-azul" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Azul
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q1-verde" name="q1" value="Verde" class="hidden radio-custom">
+                            <label for="q1-verde" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Verde
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q1-preto" name="q1" value="Preto" class="hidden radio-custom">
+                            <label for="q1-preto" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Preto
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q1-vermelho" name="q1" value="Vermelho" class="hidden radio-custom">
+                            <label for="q1-vermelho" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Vermelho
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-4">2. Qual lugar o Gabriel mais gostaria de visitar?</h2>
+                    <p class="text-gray-600 mb-6">Essa pergunta revela os sonhos de viagem dele.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <input type="radio" id="q2-japao" name="q2" value="Japão" class="hidden radio-custom">
+                            <label for="q2-japao" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Japão
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q2-paris" name="q2" value="Paris" class="hidden radio-custom">
+                            <label for="q2-paris" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Paris
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q2-eua" name="q2" value="Estados Unidos" class="hidden radio-custom">
+                            <label for="q2-eua" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Estados Unidos
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q2-brasil" name="q2" value="Brasil" class="hidden radio-custom">
+                            <label for="q2-brasil" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Brasil
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-4">3. Qual é a comida favorita do Gabriel?</h2>
+                    <p class="text-gray-600 mb-6">O que o Gabriel ama comer?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <input type="radio" id="q3-sushi" name="q3" value="Sushi" class="hidden radio-custom">
+                            <label for="q3-sushi" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Sushi
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q3-churrasco" name="q3" value="Churrasco" class="hidden radio-custom">
+                            <label for="q3-churrasco" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Churrasco
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q3-pizza" name="q3" value="Pizza" class="hidden radio-custom">
+                            <label for="q3-pizza" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Pizza
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q3-hamburguer" name="q3" value="Hambúrguer" class="hidden radio-custom">
+                            <label for="q3-hamburguer" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Hambúrguer
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-4">4. Qual é a música que o Gabriel não consegue parar de ouvir?</h2>
+                    <p class="text-gray-600 mb-6">Música é uma parte importante de qualquer relacionamento.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <input type="radio" id="q4-romantica" name="q4" value="Uma música romântica" class="hidden radio-custom">
+                            <label for="q4-romantica" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Uma música romântica
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q4-pop" name="q4" value="Pop animado" class="hidden radio-custom">
+                            <label for="q4-pop" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Pop animado
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q4-rock" name="q4" value="Rock clássico" class="hidden radio-custom">
+                            <label for="q4-rock" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Rock clássico
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q4-rap" name="q4" value="Rap" class="hidden radio-custom">
+                            <label for="q4-rap" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Rap
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-4">5. O que faz o Gabriel mais feliz?</h2>
+                    <p class="text-gray-600 mb-6">O que realmente faz o Gabriel brilhar de felicidade?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <input type="radio" id="q5-amigos" name="q5" value="Estar com seus amigos" class="hidden radio-custom">
+                            <label for="q5-amigos" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Estar com seus amigos
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q5-viajar" name="q5" value="Viajar para lugares novos" class="hidden radio-custom">
+                            <label for="q5-viajar" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Viajar para lugares novos
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q5-sofia" name="q5" value="Estar com você, Sofia" class="hidden radio-custom">
+                            <label for="q5-sofia" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Estar com você, Sofia
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q5-jogar" name="q5" value="Jogar e se divertir" class="hidden radio-custom">
+                            <label for="q5-jogar" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                Jogar e se divertir
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-4">6. Se o Gabriel fosse te pedir em namoro, como ele faria?</h2>
+                    <p class="text-gray-600 mb-6">Como o Gabriel se expressa de forma romântica?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <input type="radio" id="q6-historia" name="q6" value="Vamos fazer história juntos?" class="hidden radio-custom">
+                            <label for="q6-historia" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                "Vamos fazer história juntos?"
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q6-vida" name="q6" value="Quero passar o resto da minha vida com você." class="hidden radio-custom">
+                            <label for="q6-vida" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                "Quero passar o resto da minha vida com você."
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q6-viver" name="q6" value="Eu não sei mais viver sem você ao meu lado." class="hidden radio-custom">
+                            <label for="q6-viver" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                "Eu não sei mais viver sem você ao meu lado."
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="q6-namorada" name="q6" value="Você quer ser minha namorada?" class="hidden radio-custom">
+                            <label for="q6-namorada" class="block px-6 py-3 border-2 border-pink-200 hover:border-pink-400 rounded-lg transition cursor-pointer text-center">
+                                "Você quer ser minha namorada?"
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button type="button" onclick="submitQuiz()" class="px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-full transition transform hover:scale-105">
+                        Enviar Respostas <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Result -->
+        <div id="result" class="hidden bg-white rounded-xl shadow-lg p-8 text-center">
+            <div class="heart-beat text-6xl text-pink-500 mb-6">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-pink-700 mb-6">Resultado do Quiz</h2>
+            
+            <div id="score-message" class="text-xl text-gray-700 mb-8">
+                <p id="score-text">Sofia, você acertou <span id="score-percentage" class="text-4xl font-bold text-pink-600">0%</span> das perguntas!</p>
+                <p id="score-comment" class="mt-4 text-lg"></p>
+            </div>
+            
+            <div class="bg-pink-50 rounded-lg p-6 mb-8 text-left">
+                <h3 class="text-xl font-bold text-pink-700 mb-4">Mensagem Especial do Gabriel:</h3>
+                <p id="love-message" class="text-gray-700 mb-4"></p>
+                <p class="text-center text-2xl font-bold text-pink-700 mt-6">Você aceita ser minha namorada? 💖</p>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+                <button onclick="showResponse('yes')" class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full transform hover:scale-110 transition">
+                    <i class="fas fa-heart mr-2"></i> SIM!
+                </button>
+                <button onclick="showResponse('no')" class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full transform hover:scale-110 transition">
+                    <i class="fas fa-times mr-2"></i> Não
+                </button>
+            </div>
+        </div>
+
+        <!-- Response -->
+        <div id="response-yes" class="hidden bg-white rounded-xl shadow-lg p-8 text-center">
+            <div class="text-6xl text-pink-500 mb-6 animate-bounce">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-pink-700 mb-6">Ebaaa! ❤️</h2>
+            <p class="text-xl text-gray-700 mb-8">Gabriel está pulando de alegria! Ele mal pode esperar para começar essa nova fase ao seu lado.</p>
+            <p class="text-lg text-gray-700">Obrigado por fazer parte dessa história linda!</p>
+            <div class="mt-8">
+                <button onclick="location.reload()" class="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-full">
+                    Fazer o Quiz novamente <i class="fas fa-redo ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="response-no" class="hidden bg-white rounded-xl shadow-lg p-8 text-center">
+            <div class="text-6xl text-pink-500 mb-6">
+                <i class="fas fa-heart-crack"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-pink-700 mb-6">Que pena... 😢</h2>
+            <p class="text-xl text-gray-700 mb-8">Gabriel respeita sua decisão, mas o coração dele vai continuar torcendo por você.</p>
+            <p class="text-lg text-gray-700">Obrigado por todos os momentos especiais!</p>
+            <div class="mt-8">
+                <button onclick="location.reload()" class="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-full">
+                    Fazer o Quiz novamente <i class="fas fa-redo ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-pink-700 text-white py-6 text-center">
+        <p>Feito com <i class="fas fa-heart text-red-300"></i> por Gabriel para Sofia</p>
+    </footer>
+
+    <script>
+        // Correct answers
+        const correctAnswers = {
+            q1: "Verde",
+            q2: "Japão",
+            q3: "Churrasco",
+            q4: "Uma música romântica",
+            q5: "Estar com você, Sofia",
+            q6: "Você quer ser minha namorada?"
+        };
+
+        function startQuiz() {
+            document.getElementById('intro').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+        }
+
+        function submitQuiz() {
+            // Calculate score
+            let score = 0;
+            const form = document.getElementById('quiz-form');
+            const formData = new FormData(form);
+            
+            for (const [question, answer] of formData.entries()) {
+                if (answer === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            
+            const percentage = Math.round((score / 6) * 100);
+            
+            // Display score
+            document.getElementById('score-percentage').textContent = `${percentage}%`;
+            
+            // Show appropriate messages based on score
+            const scoreComment = document.getElementById('score-comment');
+            const loveMessage = document.getElementById('love-message');
+            
+            if (percentage >= 70) {
+                document.getElementById('score-text').textContent = `Sofia, você acertou ${percentage}% das perguntas!`;
+                scoreComment.textContent = "Isso mostra que você conhece o Gabriel como ninguém! 💕";
+                scoreComment.className = "mt-4 text-lg text-green-600 font-medium";
+                
+                loveMessage.innerHTML = `"Sofia, desde que você apareceu na minha vida, tudo mudou. Eu te admiro, te respeito e... estou pronto. Agora eu quero saber..."`;
+            } else {
+                document.getElementById('score-text').textContent = `Você acertou ${percentage}% das perguntas!`;
+                scoreComment.textContent = "Talvez precise conhecer um pouquinho mais do Gabriel, mas isso não muda o quanto ele gosta de você!";
+                scoreComment.className = "mt-4 text-lg text-yellow-600 font-medium";
+                
+                loveMessage.innerHTML = `"Mesmo que você tenha errado algumas, eu te escolho todos os dias. Quer começar essa nova fase comigo?"`;
+            }
+            
+            // Show result
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result').classList.remove('hidden');
+        }
+
+        function showResponse(response) {
+            document.getElementById('result').classList.add('hidden');
+            document.getElementById(`response-${response}`).classList.remove('hidden');
+            
+            if (response === 'yes') {
+                createConfetti();
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#f87171', '#60a5fa', '#34d399', '#fbbf24', '#a78bfa', '#f472b6'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                
+                const animation = confetti.animate([
+                    { top: '-10px', opacity: 1, transform: 'scale(0.5)' },
+                    { top: '100vh', opacity: 0.5, transform: 'scale(1)' }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                });
+                
+                document.body.appendChild(confetti);
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+</html>
